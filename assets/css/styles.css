@@ -1,0 +1,19 @@
+:root {
+    --blue: #102542;
+}
+
+.header {
+    background-color: var(--blue);
+}
+
+.header h1 {
+    color: white;
+}
+
+/* .city-search, .weather-forecast {
+    background-color: #CDD7D6;
+} */
+
+.btn {
+    margin-top: 10px;
+}

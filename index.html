@@ -14,19 +14,31 @@
 
   <body>
 
-    <header>
-
+    <header class="p-4 mb-4 text-center header">
+            <h1>Weather Dashboard</h1>
     </header>
 
     <main> 
         <div class="container-fluid"> 
             <div class="row">
-                <div class="col-12 col-md-3 ">
-                    <h1>Search for a city</h1>
-                    <form id="weather-form"></form>
-                    
+                <div class="col-12 col-md-3 city-search">
+                    <h1>Search for a City</h1>
+                    <form id="weather-form" class="form w-100">
+                        <input id ="search-input"
+                        class="form-control" 
+                        type="text" 
+                        placeholder="Enter a city">
+
+                        <button type="submit" class="btn btn-outline-primary btn-block">
+                            Search
+                          </button>
+                    </form>
+
+                    <div class="col-12 col-md-3">
+                            <!--placeholder for previous searches-->
+                    </div>
                 </div>
-                <div class="col-12 col-md-9">
+                <div class="col-12 col-md-9 weather-forecast">
                     <div><!--placeholder for the weather of current day !--></div>
                     <div><!--placeholder for 5-day forecast !--></div>
                 </div>
@@ -42,6 +54,7 @@
         crossorigin="anonymous">
     </script>
 
+    <script src="./assets/js/script.js"></script>
   </body>
 
 </html>
