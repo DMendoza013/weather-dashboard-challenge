@@ -16,7 +16,7 @@ function handleSearchFormSubmit (event) {
         alert('Please input a city');
     }
 
-    return console.log(searchInputVal);
+    // return console.log(searchInputVal);
 }
 
 
@@ -43,11 +43,11 @@ function getWeather(lat , lon) {
         .then(function(response) { 
             if (response.ok) {
                 response.json().then(function(data){
-                    console.log(data);
+                    // console.log(data);
                     currentCity = data.city.name;
                     currentTemp = data.list[0].main.temp;
                     currentWind = data.list[0].wind.speed;
-                    currentHum = data.list[0].main.humidity
+                    currentHum = data.list[0].main.humidity;
                     displayWeather(currentCity, currentTemp, currentWind, currentHum);
                 })
             }
