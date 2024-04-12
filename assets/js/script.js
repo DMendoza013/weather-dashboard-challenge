@@ -4,6 +4,7 @@ const currentWeatherEL = document.querySelector('#currentWeatherDay');
 const weeklyWeatherEl = document.querySelector('#fiveDayForecast');
 const weatherCardsEl = document.querySelector('.weather-cards');
 const currentWeatherEl = document.querySelector('#currentWeather');
+const ApiKey = "eec7d54917da44bb2506e32e2a59cd92";
 
 function handleSearchFormSubmit (event) {
     event.preventDefault();
@@ -23,7 +24,7 @@ function handleSearchFormSubmit (event) {
 
 
 function geoCoding(city) {
-    const geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=eec7d54917da44bb2506e32e2a59cd92`
+    const geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${ApiKey}`
 
     fetch(geoApi)
         .then(function (response){ 
@@ -40,7 +41,7 @@ function geoCoding(city) {
 }
 
 function getWeather(currentCity, lat , lon) {
-    const weatherApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=eec7d54917da44bb2506e32e2a59cd92&units=imperial`
+    const weatherApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${ApiKey}&units=imperial`
 
     fetch(weatherApi)
         .then(function(response) { 
