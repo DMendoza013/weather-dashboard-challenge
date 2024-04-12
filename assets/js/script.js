@@ -2,11 +2,13 @@ const searchFormEl = document.querySelector('#weather-form');
 const searchInputEl = document.querySelector('#search-input');
 const currentWeatherEL = document.querySelector('#currentWeatherDay');
 const weeklyWeatherEl = document.querySelector('#fiveDayForecast');
+const weatherCardsEl = document.querySelector('.weather-cards');
+const currentWeatherEl = document.querySelector('#currentWeather');
 
 function handleSearchFormSubmit (event) {
     event.preventDefault();
 
-    const searchInputVal = document.querySelector('#search-input').value;
+    const searchInputVal = document.querySelector('#search-input').value.trim();
 
     if(searchInputVal) {
         geoCoding(searchInputVal);
@@ -29,39 +31,64 @@ function geoCoding(city) {
                 response.json().then(function(data){
                     const latitude = data[0].lat;
                     const longitude = data[0].lon;
-                    getWeather(latitude, longitude);
+                    const currentCity = data[0].name; 
+                    getWeather(currentCity, latitude, longitude);
                 })
             }
         })
         
 }
 
-function getWeather(lat , lon) {
+function getWeather(currentCity, lat , lon) {
     const weatherApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=eec7d54917da44bb2506e32e2a59cd92&units=imperial`
 
     fetch(weatherApi)
         .then(function(response) { 
             if (response.ok) {
                 response.json().then(function(data){
-                    // console.log(data);
-                    currentCity = data.city.name;
-                    currentTemp = data.list[0].main.temp;
-                    currentWind = data.list[0].wind.speed;
-                    currentHum = data.list[0].main.humidity;
-                    displayWeather(currentCity, currentTemp, currentWind, currentHum);
-                })
-            }
-        })
+                    const forecastDays = []; 
+                    const fiveDayForecast = data.list.filter(function (forecast) {
+                        const forecastDate = new Date(forecast.dt_txt).getDate();
+                        if(!forecastDays.includes(forecastDate)){
+                            return forecastDays.push(forecastDate);
+                        };
+                    });
+                    currentWeatherEl.innerHTML = "";
+                    weatherCardsEl.innerHTML = "";
+                    
+                    fiveDayForecast.forEach((arrayItem , arrayIndex) =>{ 
+                        if(arrayIndex === 0) {
+                            currentWeatherEl.insertAdjacentHTML("beforeend", displayWeather(currentCity, arrayItem, arrayIndex));
+                        } else {
+                            weatherCardsEl.insertAdjacentHTML("beforeend", displayWeather(currentCity, arrayItem, arrayIndex));
+                        }  
+                    });
+                    
+                });
+            };
+        });
     
         // console.log(lat);
         // console.log(lon);
-}
+};
 
-function displayWeather(city, temp, wind, humidity) {
-    console.log(city);
-    console.log(temp);
-    console.log(wind);
-    console.log(humidity);
+const displayWeather = (currentCity, array, arrayIndex) => {
+    // console.log(array);
+    if(arrayIndex === 0) {
+        return  `<div class="details">
+                    <h2>${currentCity} (${array.dt_txt.split(" ")[0]})</h2>
+                    <h4>Temperature : ${array.main.temp} °F</h4>
+                    <h4>Winds: ${array.wind.speed} MPH</h4>
+                    <h4>Humidity: ${array.main.humidity} %</h4>
+                </div>`
+    } else {
+        return `<li class="card">
+                <h3>(${array.dt_txt.split(" ")[0]})</h3>
+                <h4>Temperature : ${array.main.temp} °F</h4>
+                <h4>Winds: ${array.wind.speed} MPH</h4>
+                <h4>Humidity: ${array.main.humidity} %</h4>
+            </li>`;
+    };
 }
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
