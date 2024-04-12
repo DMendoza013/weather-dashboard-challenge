@@ -24,7 +24,7 @@ function handleSearchFormSubmit (event) {
 
 
 function geoCoding(city) {
-    const geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${ApiKey}`
+    const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${ApiKey}`
 
     fetch(geoApi)
         .then(function (response){ 
@@ -41,7 +41,7 @@ function geoCoding(city) {
 }
 
 function getWeather(currentCity, lat , lon) {
-    const weatherApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${ApiKey}&units=imperial`
+    const weatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${ApiKey}&units=imperial`
 
     fetch(weatherApi)
         .then(function(response) { 
