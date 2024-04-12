@@ -17,3 +17,20 @@
 .btn {
     margin-top: 10px;
 }
+
+.weather-cards {
+    padding-left: 0;
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    align-items: center;
+}
+
+.weather-cards .card {
+    display: flex;
+    flex: 1;
+}
+
+#fiveDayForecast h2 {
+    font-size: 1.5rem;
+}
